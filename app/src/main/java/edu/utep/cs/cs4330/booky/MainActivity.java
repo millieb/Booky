@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     private void createUser(){
         String emailCreated,passwordCreated;
         if(!checkFields()){
-            Toast.makeText(getApplicationContext(), "Incorrect information", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Unable to create user", Toast.LENGTH_SHORT).show();
         } else {
             emailCreated = emailEditText.getText().toString();
             passwordCreated = passwordEditText.getText().toString();
