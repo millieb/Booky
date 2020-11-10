@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "282201484199",
+    "firebase_url": "https://booky-a68b3.firebaseio.com",
+    "project_id": "booky-a68b3",
+    "storage_bucket": "booky-a68b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282201484199:android:cae2eaba41f01ea6e62482",
+        "android_client_info": {
+          "package_name": "edu.utep.cs.cs4330.booky"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "282201484199-hkeo35gtc8g91etovtt270rhn0vvnuc0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.utep.cs.cs4330.booky",
+            "certificate_hash": "50032ab719170a061a8d987a228d752ad5d89a7d"
+          }
+        },
+        {
+          "client_id": "282201484199-fbtqun2k5fbm78b5n7bkrbtmjjbf2gpt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBv8BXkoL4qoCkpWYLsABi5yjbQsMyAX6I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "282201484199-fbtqun2k5fbm78b5n7bkrbtmjjbf2gpt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
