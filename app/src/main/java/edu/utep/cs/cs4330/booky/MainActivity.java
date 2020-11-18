@@ -11,9 +11,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 if(user!=null){
                     Log.d("TAG", "User is logged in: "+user.getDisplayName());
                 } else{
-                    Log.d("TAG", "User is NOT logged in: ");
+                    Log.d("TAG", "User is NOT logged in");
                 }
             }
         };
@@ -78,6 +82,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void updateLoginState(String message){
+        Toast.makeText(this, message.toString(), Toast.LENGTH_LONG).show();
+    }
+
     private void createUser(){
         String emailCreated,passwordCreated;
         if(!checkFields()){
@@ -91,9 +99,18 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        Toast.makeText(MainActivity.this, "Account has been created", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Account has been created", Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(MainActivity.this, "Error creating account", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Error creating account", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    if(e instanceof FirebaseAuthUserCollisionException){
+                        updateLoginState("Email is already in use.");
+                    } else {
+                        updateLoginState(e.getLocalizedMessage());
                     }
                 }
             });
@@ -113,11 +130,23 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        Toast.makeText(MainActivity.this, "Logged in", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Logged in", Toast.LENGTH_LONG).show();
                     }else {
-                        Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_LONG).show();
                     }
                     updateLoginState();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    if(e instanceof FirebaseAuthInvalidCredentialsException){
+                        updateLoginState("Invalid password");
+                    }
+                    else if(e instanceof FirebaseAuthInvalidUserException){
+                        updateLoginState("User does not exist");
+                    } else {
+                        updateLoginState(e.getLocalizedMessage());
+                    }
                 }
             });
         }
