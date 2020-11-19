@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,6 +39,27 @@ public class MainActivity extends AppCompatActivity {
         createSignInIntent();
     }
 
+    // Add menu options when activity is created.
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    // Listener for option menu selections
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            // Add button was pressed.
+            case R.id.addButton:
+                Intent i = new Intent(this, AddBook.class);
+                i.putExtra("addingItem", true);
+                // Call activity to add an item to the list.
+                startActivityForResult(i, 1);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    //Firebase prebuilt UI Auth
     public void createSignInIntent() {
         // [START auth_fui_create_intent]
         // Choose authentication providers
