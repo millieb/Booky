@@ -11,6 +11,7 @@ import com.firebase.client.Firebase;
 
 public class AddBook extends AppCompatActivity {
     EditText edit_book_title;
+    EditText key;
     Button save;
     Firebase firebase;
 
@@ -19,15 +20,16 @@ public class AddBook extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
         Firebase.setAndroidContext(this);
-        firebase = new Firebase("https://booky-a68b3.firebaseio.com/");
+        //firebase = new Firebase("https://booky-a68b3.firebaseio.com/");
+        firebase = new Firebase("https://booky-a68b3.firebaseio.com/Book");
 
         edit_book_title = findViewById(R.id.edit_book_title);
         save = findViewById(R.id.saveButton);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Firebase refFirebase = firebase.child("Title");
-                refFirebase.setValue(edit_book_title.getText().toString());
+                String title = edit_book_title.getText().toString();
+                firebase.push().setValue(title);
             }
         });
     }
