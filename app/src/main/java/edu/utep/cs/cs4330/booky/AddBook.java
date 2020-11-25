@@ -20,16 +20,15 @@ public class AddBook extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
         Firebase.setAndroidContext(this);
-        //firebase = new Firebase("https://booky-a68b3.firebaseio.com/");
-        firebase = new Firebase("https://booky-a68b3.firebaseio.com/Book");
+        firebase = new Firebase("https://booky-a68b3.firebaseio.com/");
 
         edit_book_title = findViewById(R.id.edit_book_title);
         save = findViewById(R.id.saveButton);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String title = edit_book_title.getText().toString();
-                firebase.push().setValue(title);
+                Book book = new Book("Title", "Author", "Genre", "ISBN");
+                firebase.child("Book").child("book").setValue(book);
             }
         });
     }
