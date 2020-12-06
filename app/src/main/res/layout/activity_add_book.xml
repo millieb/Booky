@@ -9,7 +9,8 @@
         android:hint="@string/book_title_hint"
         android:id="@+id/edit_book_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"/>
 
     <EditText
         android:hint="@string/book_author_hint"
@@ -29,7 +30,7 @@
 
     <EditText
         android:hint="@string/book_ISB_hint"
-        android:id="@+id/edit_book_isb"
+        android:id="@+id/edit_book_isbn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/edit_book_genre"

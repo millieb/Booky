@@ -7,4 +7,5 @@
     <string name="book_ISB_hint">ISB</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
+    <string name="addBook">Add Book</string>
 </resources>

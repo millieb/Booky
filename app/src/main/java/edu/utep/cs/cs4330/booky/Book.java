@@ -1,10 +1,19 @@
 package edu.utep.cs.cs4330.booky;
 
-public class Book {
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.io.Serializable;
+import java.util.HashMap;
+
+public class Book implements Serializable {
     String title;
     String author;
     String genre;
     String isbn;
+
+    public Book(){
+    }
 
     public Book(String title, String author, String genre, String isbn){
         this.title = title;
