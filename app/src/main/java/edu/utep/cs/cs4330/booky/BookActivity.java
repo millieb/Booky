@@ -21,6 +21,9 @@ import android.widget.Toast;
 import com.firebase.client.Firebase;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -96,6 +99,7 @@ public class BookActivity extends AppCompatActivity {
         final EditText editTextUpdateGenre = mDialogView.findViewById(R.id.editTextUpdateBookGenre);
         final EditText editTextUpdateISBN = mDialogView.findViewById(R.id.editTextUpdateBookISBN);
         Button buttonUpdate = mDialogView.findViewById(R.id.buttonUpdate);
+        Button buttonDelete = mDialogView.findViewById(R.id.buttonDelete);
 
         mDialog.setTitle("Updating " + title );
         final AlertDialog alertDialog = mDialog.create();
@@ -117,6 +121,36 @@ public class BookActivity extends AppCompatActivity {
 
                 Toast.makeText(BookActivity.this, "Record updated!", Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();
+            }
+        });
+
+        buttonDelete.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                deleteRecord(id);
+                alertDialog.dismiss();
+            }
+        });
+    }
+    private void showToast(String message){
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+    }
+
+    private void deleteRecord(String id){
+        //Create reference to database
+        DatabaseReference DbRef = FirebaseDatabase.getInstance().getReference("book").child(id);
+        //Generic task to delete only one record
+        Task<Void> mTask = DbRef.removeValue();
+        mTask.addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                showToast("Deleted");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                showToast("Error deleting record");
             }
         });
     }
