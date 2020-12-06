@@ -73,7 +73,7 @@ public class AddBook extends AppCompatActivity {
 
         String id = bookDbRef.push().getKey();
 
-        Book book = new Book(title, author, genre, isbn);
+        Book book = new Book(id, title, author, genre, isbn);
         assert id != null;
         bookDbRef.child(id).setValue(book);
 

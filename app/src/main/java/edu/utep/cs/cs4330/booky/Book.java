@@ -1,6 +1,7 @@
 package edu.utep.cs.cs4330.booky;
 
 public class Book {
+    String id;
     String title;
     String author;
     String genre;
@@ -9,12 +10,17 @@ public class Book {
     public Book(){
     }
 
-    public Book(String title, String author, String genre, String isbn){
+    public Book(String id, String title, String author, String genre, String isbn){
+        this.id = id;
         this.title = title;
         this.author = author;
         this.genre = genre;
         this.isbn = isbn;
     }
+
+    public String getID() { return this.id; }
+
+    public void setID(String id) { this.id = id; }
 
     public String getTitle() { return this.title; }
 
