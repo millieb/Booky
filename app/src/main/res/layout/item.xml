@@ -15,24 +15,28 @@
             android:id="@+id/bookTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingRight="10dp"
             android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/bookAuthorTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingRight="10dp"
             android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/bookGenreTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingRight="10dp"
             android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/bookISBNTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingRight="10dp"
             android:textSize="20sp"/>
 
     </LinearLayout>

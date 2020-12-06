@@ -1,61 +1,50 @@
 package edu.utep.cs.cs4330.booky;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class BookAdapter extends RecyclerView.Adapter{
+public class BookAdapter extends ArrayAdapter {
 
+    private Activity mContext;
     private List<Book> bookList;
 
-    public BookAdapter(List<Book> bookList){
+    public BookAdapter(Activity mContext, List<Book> bookList){
+        super(mContext, R.layout.item, bookList);
+        this.mContext = mContext;
         this.bookList = bookList;
     }
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item,parent,false);
-        ViewHolderClass viewHolderClass = new ViewHolderClass(itemView);
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        return viewHolderClass;
-    }
+        LayoutInflater inflater = mContext.getLayoutInflater();
+        View listItemView = inflater.inflate(R.layout.item,null,true);
 
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
-        ViewHolderClass viewHolderClass = (ViewHolderClass) holder;
+        TextView title = listItemView.findViewById(R.id.bookTitleTextView);
+        TextView author = listItemView.findViewById(R.id.bookAuthorTextView);
+        TextView genre = listItemView.findViewById(R.id.bookGenreTextView);
+        TextView isbn = listItemView.findViewById(R.id.bookISBNTextView);
 
         Book book = bookList.get(position);
-        viewHolderClass.title.setText(book.getTitle());
-        viewHolderClass.author.setText(book.getAuthor());
-        viewHolderClass.genre.setText(book.getGenre());
-        viewHolderClass.isbn.setText(book.getISBN());
-    }
 
-    @Override
-    public int getItemCount() {
-        return bookList.size();
-    }
+        title.setText(book.getTitle());
+        author.setText(book.getAuthor());
+        genre.setText(book.getGenre());
+        isbn.setText(book.getISBN());
 
-    public class ViewHolderClass extends RecyclerView.ViewHolder{
-        TextView title,author,genre,isbn;
-
-        public ViewHolderClass(@NonNull View itemView) {
-            super(itemView);
-            title = itemView.findViewById(R.id.bookTitleTextView);
-            author = itemView.findViewById(R.id.bookAuthorTextView);
-            genre = itemView.findViewById(R.id.bookGenreTextView);
-            isbn = itemView.findViewById(R.id.bookISBNTextView);
-        }
+        return listItemView;
     }
 }

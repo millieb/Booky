@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -31,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     Button viewBookListButton;
     private static final int RC_SIGN_IN = 123;
@@ -44,16 +46,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
-
         viewBookListButton = findViewById(R.id.viewBookListButton);
 
-        viewBookListButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-                Intent intentBookList = new Intent(MainActivity.this,BookActivity.class);
-                startActivity(intentBookList);
-             }
-        });
+        viewBookListButton.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()){
+
+            case R.id.viewBookListButton:
+                startActivity(new Intent(MainActivity.this,BookActivity.class));
+                break;
+        }
 
     }
 
@@ -86,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()){
             // Add button was pressed.
             case R.id.addButton:
-                Intent i = new Intent(this, AddBook.class);
+                Intent i = new Intent(MainActivity.this, AddBook.class);
                 // Call activity to add an item to the list.
                 startActivityForResult(i, 1);
                 return true;

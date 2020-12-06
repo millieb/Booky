@@ -11,12 +11,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.firebase.client.Firebase;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,13 +31,10 @@ import java.util.List;
 
 public class BookActivity extends AppCompatActivity {
 
+    ListView listView;
     List<Book> bookList;
-    RecyclerView recyclerView;
-    BookAdapter bookAdapter;
 
-    LinearLayoutManager linearLayoutManager;
-
-    DatabaseReference databaseReference;
+    DatabaseReference bookDbRef;
 
 
     @Override
@@ -43,44 +42,28 @@ public class BookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
 
-        recyclerView = findViewById(R.id.recyclerView);
-        linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        listView = findViewById(R.id.listView);
         bookList = new ArrayList<>();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("book");
+        bookDbRef = FirebaseDatabase.getInstance().getReference("book");
 
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        bookDbRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds : snapshot.getChildren()){
-                    Book data = ds.getValue(Book.class);
-                    bookList.add(data);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                bookList.clear();
 
-                    Log.d("TAG", data.getTitle() + " / " +
-                            data.getAuthor());
+                for(DataSnapshot bookDatasnap : dataSnapshot.getChildren()){
+                    Book book = bookDatasnap.getValue(Book.class);
+                    bookList.add(book);
                 }
+
+                BookAdapter adapter = new BookAdapter(BookActivity.this,bookList);
+                listView.setAdapter(adapter);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
-
-
-        bookAdapter = new BookAdapter(bookList);
-        recyclerView.setAdapter(bookAdapter);
-
-
-        FloatingActionButton fab = findViewById(R.id.fabAdd);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(BookActivity.this, AddBook.class);
-                // Call activity to add an item to the list.
-                startActivityForResult(i, 1);
             }
         });
     }

@@ -33,34 +33,24 @@ public class AddBook extends AppCompatActivity {
     EditText edit_book_isbn;
     Button save,cancel;
 
-    List<Book> bookList;
-    DatabaseReference databaseReference;
+    DatabaseReference bookDbRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-
         edit_book_title = findViewById(R.id.edit_book_title);
         edit_book_author = findViewById(R.id.edit_book_author);
         edit_book_genre = findViewById(R.id.edit_book_genre);
         edit_book_isbn = findViewById(R.id.edit_book_isbn);
-
         save = findViewById(R.id.saveButton);
+
+        bookDbRef = FirebaseDatabase.getInstance().getReference("book");
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String title = edit_book_title.getText().toString();
-                String author = edit_book_author.getText().toString();
-                String genre = edit_book_genre.getText().toString();
-                String isbn = edit_book_isbn.getText().toString();
-
-                Book book = new Book(title, author, genre, isbn);
-                databaseReference.child("book").push().setValue(book);
-                finish();
+                insertBookData();
             }
         });
 
@@ -73,5 +63,21 @@ public class AddBook extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void insertBookData() {
+        String title = edit_book_title.getText().toString();
+        String author = edit_book_author.getText().toString();
+        String genre = edit_book_genre.getText().toString();
+        String isbn = edit_book_isbn.getText().toString();
+
+        String id = bookDbRef.push().getKey();
+
+        Book book = new Book(title, author, genre, isbn);
+        assert id != null;
+        bookDbRef.child(id).setValue(book);
+
+        Toast.makeText(AddBook.this,"Book has been added!",Toast.LENGTH_SHORT).show();
+        finish();
     }
 }
