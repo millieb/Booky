@@ -48,8 +48,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
-        viewBookListButton = findViewById(R.id.viewBookListButton);
+        createSignInIntent();
 
+
+        viewBookListButton = findViewById(R.id.viewBookListButton);
         viewBookListButton.setOnClickListener(this);
 
     }
@@ -64,19 +66,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
 
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        if(mFirebaseUser!=null){
-            //there is a user logged in
-        } else {
-            //no one is logged in
-            createSignInIntent();
-        }
     }
 
     @Override
