@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"><![CDATA[
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="edu.utep.cs.cs5390.mypricewatcher.MainActivity">
 
+    ]]>
     <item
         android:id="@+id/addButton"
         android:icon="@android:drawable/ic_menu_add"

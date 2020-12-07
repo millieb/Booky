@@ -35,7 +35,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    Button viewBookListButton;
+    Button viewBookListButton, searchButton;
     private static final int RC_SIGN_IN = 123;
     private FirebaseAuth mFirebaseAuth;
 

@@ -100,11 +100,13 @@ public class BookActivity extends AppCompatActivity {
         final EditText editTextUpdateISBN = mDialogView.findViewById(R.id.editTextUpdateBookISBN);
         Button buttonUpdate = mDialogView.findViewById(R.id.buttonUpdate);
         Button buttonDelete = mDialogView.findViewById(R.id.buttonDelete);
+        Button buttonEmail = mDialogView.findViewById(R.id.buttonEmail);
 
         mDialog.setTitle("Updating " + title );
         final AlertDialog alertDialog = mDialog.create();
         mDialog.show();
 
+        //Updating book information on database
         buttonUpdate.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -124,6 +126,17 @@ public class BookActivity extends AppCompatActivity {
             }
         });
 
+        //Email user regarding borrowed book
+        buttonEmail.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(BookActivity.this, EmailActivity.class));
+                alertDialog.dismiss();
+            }
+        });
+
+        //Deleting book information on database
         buttonDelete.setOnClickListener(new View.OnClickListener(){
 
             @Override

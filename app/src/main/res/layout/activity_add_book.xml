@@ -5,12 +5,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="83dp"
+        android:layout_height="82dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="56dp"
+        app:srcCompat="@drawable/login_booky_icon" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
+        android:layout_marginLeft="20dp"
+        android:text="Add a book"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@id/imageView"/>
+
     <EditText
         android:hint="@string/book_title_hint"
         android:id="@+id/edit_book_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"/>
+        android:layout_marginTop="200dp"/>
 
     <EditText
         android:hint="@string/book_author_hint"
